@@ -1,0 +1,19 @@
+defaults:
+  - inference_base
+  - _self_
+
+run_name_: ucond_lora
+ckpt_name: proteina_v1.5_DFS_200M_tri_PDB_LoRA.ckpt
+
+self_cond: True
+
+sampling_caflow:
+  sampling_mode: sc  # "vf" for ODE sampling, "sc" for SDE sampling. "vf" does not allow low temperature sampling.
+  sc_scale_noise: 0.5  # noise scale, used if sampling_mode == "sc"
+
+lora:
+  use: True
+  lora_alpha: 32.0
+  lora_dropout: 0.0
+  r: 16
+  train_bias: "none"

@@ -1,0 +1,23 @@
+defaults:
+  - inference_base
+  - _self_
+
+run_name_: cond_cath_codes
+ckpt_name: proteina_v1.1_DFS_200M_tri.ckpt
+
+
+self_cond: False
+fold_cond: True
+cath_code_level: "T"  # Guidance level -- C, A, or T
+
+# Uncomment this line for long len proteins [50, 250] residues
+len_cath_code_path: ${oc.env:DATA_PATH}/metric_factory/features/D_FS_afdb_cath_codes.pth
+
+# Uncomment this line for long len proteins [300, 800] residues
+# len_cath_code_path: ${oc.env:DATA_PATH}/metric_factory/features/fold_class_mappings_C_selected_A_T_cath_codes.pth
+
+sampling_caflow:
+  sampling_mode: sc  # "vf" for ODE sampling, "sc" for SDE sampling
+  sc_scale_noise: 0.45  # noise scale, used if sampling_mode == "sc"
+
+

@@ -1,0 +1,65 @@
+run_name_: motif_scaffolfing
+ckpt_path: path/to/checkpoint/directory
+ckpt_name: proteina_v1.7_DFS_60M_notri_motif_scaffolding.ckpt
+
+ncpus_: 24
+seed: 5
+
+nsamples: 2
+# Maximum number of samples in each batch
+max_nsamples_per_batch: 2
+contig_string: "10-20/B38/15-30/A14/15-30/C99/10-20"
+motif_pdb_path: "/path/to/root/protein-foundation-models/motif_data/1QJG.pdb" 
+motif_task_name: "1QJG"
+motif_only: True #False
+motif_min_length: 96 #50
+motif_max_length: 152 #75
+segment_order: "A;B;C"
+
+
+# Do not change
+nres_lens: null #[50, 60]
+min_len:
+max_len:
+step_len:
+
+# Sampling
+dt: 0.0025
+self_cond: False
+
+# Sampling params only for CAFlow
+sampling_caflow:
+  sampling_mode: sc  # Options are: vf (plain fow matching) or sc (using score, where parameters below matter)
+  sc_scale_noise: 0.4  # scale used to multiply noise if mode == sc
+  sc_scale_score: 1.0  # scale used to multiply score if mode == sc, not implemented yet
+  gt_mode: "1/t"  # us, tan, or 1/t
+  gt_p: 1.0  # float
+  gt_clamp_val: null  # 10.0 float or null
+
+schedule:
+  schedule_mode: log
+  schedule_p: 2.0
+
+# Fold conditioning
+fold_cond: False   # If true, turn on fold conditioning; if false, use unconditional model
+cath_code_level: "T"    # Guidance level
+len_cath_code_path: null #${oc.env:DATA_PATH}/metric_factory/features/old_afdb_cath_codes.pth
+
+# w: guidance weight
+# alpha: autoguidance ratio
+# x_pred = w * x_pred + (1 - alpha) * (1 - w) * x_pred_uncond + alpha * (1 - w) * x_pred_auto_guidance
+
+# Guidance
+guidance_weight: 1.0   # guidance model weights, 1.0 for w/o CFG and autoguidance, 0.0 for excluding the main model. We typically set this value greater than 1
+
+# Autoguidance
+autoguidance_ratio: 1.0   # a value between 0 and 1, determining the proportion of autoguidance v.s. classifier-free guidance, 1.0 for all autoguidance, 0.0 for all CFG
+autoguidance_ckpt_path: null
+
+
+# Designability
+designability_seqs_per_struct: 8
+compute_designability: True
+
+# FID-related metrics
+compute_fid: False

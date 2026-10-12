@@ -1,0 +1,12 @@
+defaults:
+  - inference_base
+  - _self_
+
+run_name_: ucond_200M_notri
+ckpt_name: proteina_v1.2_DFS_200M_notri.ckpt
+
+self_cond: True
+
+sampling_caflow:
+  sampling_mode: sc  # "vf" for ODE sampling, "sc" for SDE sampling
+  sc_scale_noise: 0.45  # noise scale, used if sampling_mode == "sc"

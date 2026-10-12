@@ -1,0 +1,14 @@
+defaults:
+  - inference_base
+  - _self_
+
+nres_lens: [300, 400, 500, 600, 700, 800]
+
+run_name_: long_len
+ckpt_name: proteina_v1.6_DFS_200M_notri_long_chain_generation.ckpt
+
+self_cond: True
+
+sampling_caflow:
+  sampling_mode: sc  # "vf" for ODE sampling, "sc" for SDE sampling. "vf" does not allow low temperature sampling.
+  sc_scale_noise: 0.35  # noise scale, used if sampling_mode == "sc"

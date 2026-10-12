@@ -1,0 +1,17 @@
+defaults:
+  - inference_base
+  - _self_
+
+run_name_: cond_autoguidance
+ckpt_name: proteina_v1.4_D21M_400M_tri.ckpt
+autoguidance_ckpt_path: <ckpt_path>/proteina_v1.8_D21M_400M_tri_autoguidance.ckpt
+
+self_cond: True
+fold_cond: True
+cath_code_level: "T"  # Guidance level
+
+guidance_weight: 2.0
+
+sampling_caflow:
+  sampling_mode: vf  # "vf" for ODE sampling, "sc" for SDE sampling. "vf" does not allow low temperature sampling.
+  sc_scale_noise: 0.5  # noise scale, used if sampling_mode == "sc"

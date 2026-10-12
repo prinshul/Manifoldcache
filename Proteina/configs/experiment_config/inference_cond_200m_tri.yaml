@@ -1,0 +1,17 @@
+defaults:
+  - inference_base
+  - _self_
+
+run_name_: ucond_200M_tri
+ckpt_name: proteina_v1.1_DFS_200M_tri.ckpt
+
+self_cond: False
+fold_cond: True
+cath_code_level: "T"  # Guidance level -- C, A, or T
+
+sampling_caflow:
+  sampling_mode: sc  # "vf" for ODE sampling, "sc" for SDE sampling
+  sc_scale_noise: 0.4  # noise scale, used if sampling_mode == "sc"
+
+guidance_weight: 1.0   # guidance weight, 1.0 for w/o CFG. We typically set this value >= than 1 (1 is coditinoal sampling, no guidance)
+autoguidance_ratio: 0.0

@@ -1,0 +1,15 @@
+dataset:
+  pdb_paths:
+    - ./api/demo/7mdp_3eak_chothia.pdb
+  tgt_chains:
+    - A
+  lig_chains:
+    - B
+
+templates:
+  - class: Antibody
+    cdr_type: HCDR3
+
+
+batch_size: 8
+n_samples: 20  # 20 candidates for each complex
