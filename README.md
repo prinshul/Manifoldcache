@@ -1,6 +1,24 @@
-# ManifoldCache
+<div align="center">
 
-Training-free, data-free feature caching for constraint-manifold diffusion models.
+<h1>ManifoldCache</h1>
+<h3>Training-Free Diffusion Acceleration via Constraint Manifold Caching</h3>
+
+<p><strong>NeurIPS 2026</strong></p>
+
+<a href="https://arxiv.org/abs/2610.04510">
+  <img src="https://img.shields.io/badge/arXiv-Paper-B31B1B?logo=arxiv&logoColor=white&style=for-the-badge" alt="Paper">
+</a>
+&nbsp;
+<a href="https://yrtf89.github.io/manifoldcache.github.io/index.html">
+  <img src="https://img.shields.io/badge/Project%20Page-Interactive%20Demo-2563EB?logo=github&logoColor=white&style=for-the-badge" alt="Project Page and Interactive Demo">
+</a>
+
+<!-- <p>Training-free, data-free feature caching for constraint-manifold diffusion models.</p> -->
+
+</div>
+
+This is the official implementation of **ManifoldCache: Training-Free Diffusion Acceleration via Constraint Manifold Caching**, accepted at the Conference on Neural Information Processing Systems (**NeurIPS 2026**).
+
 
 | Model | Folder |
 |---|---|
@@ -54,4 +72,11 @@ for t in reversed(range(T)):
     x = sampler_step(x, eps, t)         # DDPM / DDIM / your own update rule
 ```
 
-For flow-matching models that integrate from noise (t = 0) to data (t = 1), the safe phase is every step with log-SNR(t) >= 0 (see `Proteina/`).
+For flow-matching models that integrate from noise (t = 0) to data (t = 1), the safe phase is every step with log-SNR(t) >= 0 (see [`Proteina/`](Proteina)).
+
+###
+## 📖 License
+
+[![MIT License](https://img.shields.io/badge/MIT-License-yellow?logo=open-source)](https://opensource.org/licenses/MIT) (code)  
+
+© 2026. Use code under the MIT License.
