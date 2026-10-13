@@ -74,6 +74,20 @@ for t in reversed(range(T)):
 
 For flow-matching models that integrate from noise (t = 0) to data (t = 1), the safe phase is every step with log-SNR(t) >= 0 (see [`Proteina/`](Proteina)).
 
+## Citation
+
+If you find this work useful in your research, please cite our ICML 2026 paper:
+
+```bibtex
+@article{pandey2026manifoldcache,
+  title={ManifoldCache: Training-Free Diffusion Acceleration via Constraint Manifold Caching},
+  author={Pandey, Prashant and Chowdary, Devineni Sri Venkatraya and Lall, Brejesh},
+  journal={arXiv preprint arXiv:2610.04510},
+  year={2026},
+  url={https://arxiv.org}
+}
+```
+
 ###
 ## 📖 License
 
