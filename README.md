@@ -76,7 +76,7 @@ For flow-matching models that integrate from noise (t = 0) to data (t = 1), the 
 
 ## Citation
 
-If you find this work useful in your research, please cite our ICML 2026 paper:
+If you find this work useful in your research, please cite our paper:
 
 ```bibtex
 @article{pandey2026manifoldcache,
