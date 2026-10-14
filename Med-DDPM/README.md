@@ -13,10 +13,12 @@ Follow the setup instructions in the official Med-DDPM repository: **https://git
 ## Run
 
 ```bash
-python sample_brats_Manifoldcache.py -w model/model_brats.pt -i dataset/brats2021/seg --shallow_stride <S_shallow> --deep_stride <S_deep>
+python sample_brats_Manifoldcache.py -w model/model_brats.pt -i dataset/brats2021/seg --shallow_stride <S_shallow> --deep_stride <S_deep> --warmup tstar
 ```
 
 `<S_shallow>` and `<S_deep>` are how many steps the shallowest and deepest blocks reuse their cached output (defaults 2 and 4, with `S_shallow <= S_deep`).
+
+**Warmup** is the first, noisiest part of sampling, where every block is recomputed and nothing is cached. `--warmup tstar` ends it automatically at T* = max{t : ᾱ_t ≥ ½}, the last step where signal outweighs noise; without it, warmup is the first `--warmup_frac` of steps. **Cooldown** is the last `--cooldown_frac` of steps (default 0), which are also recomputed in full so the final details are exact.
 
 ## Acknowledgements
 

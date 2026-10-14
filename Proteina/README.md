@@ -13,10 +13,12 @@ Follow the setup instructions in the official Proteina repository: **https://git
 ## Run
 
 ```bash
-python proteinfoundation/inference_Manifoldcache.py --config_name inference_cond_autoguidance --shallow_stride <S_shallow> --deep_stride <S_deep>
+python proteinfoundation/inference_Manifoldcache.py --config_name inference_cond_autoguidance --shallow_stride <S_shallow> --deep_stride <S_deep> --warmup tstar
 ```
 
 `<S_shallow>` and `<S_deep>` are how many ODE steps the first and last transformer layers reuse their cached output (defaults 2 and 4, with `S_shallow <= S_deep`).
+
+**Warmup** is the first, noisiest part of sampling, where every layer is recomputed and nothing is cached. `--warmup tstar` ends it automatically at T*, the first step where log-SNR(t) ≥ 0 (signal outweighs noise) on the sampling schedule; without it, warmup is the first `--warmup_frac` of steps (default 0.10). **Cooldown** is the last `--cooldown_frac` of steps (default 0.05), which are also recomputed in full so the final structure is exact.
 
 ## License
 

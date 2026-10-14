@@ -12,10 +12,12 @@ Follow the setup instructions in the official DiffCSP++ repository: **https://gi
 ## Run
 
 ```bash
-python scripts/sample_Manifoldcache.py --model_path checkpoints/mp_csp/ --save_path output_manifoldcache --json_file queries.json --shallow_stride <S_shallow> --deep_stride <S_deep>
+python scripts/sample_Manifoldcache.py --model_path checkpoints/mp_csp/ --save_path output_manifoldcache --json_file queries.json --shallow_stride <S_shallow> --deep_stride <S_deep> --warmup tstar
 ```
 
 `<S_shallow>` and `<S_deep>` are how many denoising steps the first and last CSPNet layers reuse their cached output (defaults 2 and 4, with `S_shallow <= S_deep`). `queries.json` lists the space group, Wyckoff letters and atom types of the structures to generate.
+
+**Warmup** is the first, noisiest part of sampling, where every layer is recomputed and nothing is cached. `--warmup tstar` ends it automatically at T* = max{t : ᾱ_t ≥ ½}, the last step where signal outweighs noise; without it, warmup is the first `--warmup_frac` of steps. **Cooldown** is the last `--cooldown_frac` of steps (default 0.05), which are also recomputed in full so the final crystal is exact.
 
 ## Acknowledgements
 
