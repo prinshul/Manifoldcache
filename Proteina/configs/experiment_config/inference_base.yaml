@@ -1,0 +1,77 @@
+run_name_:
+ckpt_path: "path/to/checkpoints/directory"
+ckpt_name: 
+
+ncpus_: 24
+seed: 5
+
+# Lengths to sample. Uses `nres_lens` if specified, otherwise arange(min_len, max_len+1, step)
+nres_lens: [50, 100, 150, 200, 250]
+min_len:
+max_len:
+step_len:
+
+# Number of samples per protein length
+nsamples_per_len: 100
+
+# Maximum number of samples in each batch
+max_nsamples: 5
+
+# Sampling
+dt: 0.0025
+self_cond: False
+
+# Sampling params only for CAFlow
+sampling_caflow:
+  sampling_mode: sc  # Options are: vf (plain fow matching) or sc (using score, where parameters below matter)
+  sc_scale_noise: 0.4  # scale used to multiply noise if mode == sc
+  sc_scale_score: 1.0  # scale used to multiply score if mode == sc, not implemented yet
+  gt_mode: "1/t"  # us, tan, or 1/t
+  gt_p: 1.0  # float
+  gt_clamp_val: null  # 10.0 float or null
+
+schedule:
+  schedule_mode: log
+  schedule_p: 2.0
+
+# Fold conditioning
+fold_cond: False   # If true, turn on fold conditioning; if false, use unconditional model
+cath_code_level: "T"    # Guidance level
+len_cath_code_path: ${oc.env:DATA_PATH}/metric_factory/features/D_FS_afdb_cath_codes.pth
+
+# w: guidance weight
+# alpha: autoguidance ratio
+# x_pred = w * x_pred + (1 - alpha) * (1 - w) * x_pred_uncond + alpha * (1 - w) * x_pred_auto_guidance
+
+# Guidance
+guidance_weight: 1.0   # guidance model weights, 1.0 for w/o CFG and autoguidance, 0.0 for excluding the main model. We typically set this value greater than 1
+
+# Autoguidance
+autoguidance_ratio: 1.0   # a value between 0 and 1, determining the proportion of autoguidance v.s. classifier-free guidance, 1.0 for all autoguidance, 0.0 for all CFG
+autoguidance_ckpt_path: null
+
+# LoRA -- if you use lora, set the same parameters as for training
+lora:
+  use: false
+  lora_alpha: 32.0
+  lora_dropout: 0.0
+  r: 16
+  train_bias: "none"
+
+# Designability
+designability_seqs_per_struct: 8
+compute_designability: True
+
+# FID-related metrics
+compute_fid: False
+
+# Detailed explanation for the sampling_caflow parameters.
+# The ODE to sample flow matching is given by [dx_t = v(x_t, t) dt].
+# The SDE [dx_t = v(x_t, t) dt + g_t * s(x_t, t) dt + \sqrt(2 g_t) dw_t]
+# produces the same marginal distributions for any g_t.
+# The parameters from above are:
+#   - sampling_mode: vf or sc, corresponding to ODE or SDE
+#   - sc_scale_noise: Changes the noise term in the SDE as \sqrt(2 g_t) -> \sqrt(2 g_t * sc_scale_noise)
+#   - sc_scale_score: Changes the score term in the SDE as g_t * s(x_t, t) -> g_t * s(x_t, t) * sc_scale_score
+#   - sc_g: Sets the g_t. Specifically, we have g_t = sc_g * min(5, (1-t)/t), where the t dependency comes
+#   from the optimal transport coupling.
