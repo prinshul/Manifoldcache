@@ -33,6 +33,9 @@ from proteinfoundation.inference import GenDataset, split_nlens, parse_nlens_cfg
 
 from manifoldcache_proteina import patch_proteina_model, ForwardFlopMeter
 
+# TF32 matmuls on Ampere+ GPUs (the setting used for the reported timings)
+torch.set_float32_matmul_precision("high")
+
 
 if __name__ == "__main__":
     load_dotenv()
