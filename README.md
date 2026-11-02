@@ -26,6 +26,7 @@ This is the official implementation of **ManifoldCache: Training-Free Diffusion 
 | [Proteina](https://github.com/NVIDIA-BioNeMo/proteina) | [`Proteina/`](Proteina) |
 | [UniMoMo](https://github.com/kxz18/UniMoMo) | [`UniMoMo/`](UniMoMo) |
 | [DiffCSP++](https://github.com/jiaor17/DiffCSP-PP) | [`DiffCSP-PP/`](DiffCSP-PP) |
+| [DiT-MC](https://github.com/ML4MolSim/dit_mc) | [`DiT-MC/`](DiT-MC) |
 
 ## How to implement ManifoldCache in your model
 
