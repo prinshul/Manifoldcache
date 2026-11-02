@@ -5,7 +5,7 @@ dataset:
 
 dataloader:
   num_workers: 4
-  batch_size: 8
+  batch_size: 32  # UniMoMo default: 8
 
-n_samples: 100
+n_samples: 10  # UniMoMo default: 100
 n_cycles: 0
