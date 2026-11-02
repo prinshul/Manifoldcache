@@ -6,19 +6,19 @@ ncpus_: 24
 seed: 5
 
 # Lengths to sample. Uses `nres_lens` if specified, otherwise arange(min_len, max_len+1, step)
-nres_lens: [50, 100, 150, 200, 250]
+nres_lens: [100]  # Proteina default: [50, 100, 150, 200, 250]
 min_len:
 max_len:
 step_len:
 
 # Number of samples per protein length
-nsamples_per_len: 100
+nsamples_per_len: 10  # Proteina default: 100
 
 # Maximum number of samples in each batch
-max_nsamples: 5
+max_nsamples: 1  # Proteina default: 5
 
 # Sampling
-dt: 0.0025
+dt: 0.01  # 100 ODE steps; Proteina default: 0.0025 (400 steps)
 self_cond: False
 
 # Sampling params only for CAFlow
