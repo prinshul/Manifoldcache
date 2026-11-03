@@ -1,0 +1,10 @@
+context_length: 150
+depth: 24
+diffusion_steps: 500
+hidden_size: 1280
+mlp_ratio: 4
+num_heads: 16
+task_name: pretrain
+tokenizer_name: pretrain
+vocab_ring_len: 300
+vocab_size: 3000
