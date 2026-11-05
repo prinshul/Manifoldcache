@@ -1,7 +1,7 @@
 """
 Usage:
-  python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0 --eps_stride 3 --geo_stride 4 --deep_stride 4
-  python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0 --warmup tstar
+  python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0
+  python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0 --warmup frac
   python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0 --no_cache
 """
 
@@ -151,16 +151,16 @@ def parse():
     p.add_argument('--gpu', type=int, default=0, help='GPU to use, -1 for cpu')
     p.add_argument('--n_cpu', type=int, default=4)
     p.add_argument('--no_cache', action='store_true', help='Run the uncached baseline')
-    p.add_argument('--warmup', type=str.lower, default='frac', choices=['frac', 'tstar', 't*'],
-                   help="'frac': use --eps_warmup / --warmup_frac (default). "
-                        "'tstar': no L1/L3 caching for t > T* = max{t : alpha_bar_t >= 1/2}.")
-    p.add_argument('--eps_stride', type=int, default=2)
+    p.add_argument('--warmup', type=str.lower, default='tstar', choices=['frac', 'tstar', 't*'],
+                   help="'frac': use --eps_warmup / --warmup_frac. "
+                        "'tstar': no L1/L3 caching for t > T* = max{t : alpha_bar_t >= 1/2} (default).")
+    p.add_argument('--eps_stride', type=int, default=3)
     p.add_argument('--eps_warmup', type=float, default=0.12)
     p.add_argument('--eps_cooldown', type=float, default=0.08)
-    p.add_argument('--geo_stride', type=int, default=3)
+    p.add_argument('--geo_stride', type=int, default=4)
     p.add_argument('--displacement_threshold', type=float, default=0.5)
     p.add_argument('--shallow_stride', type=int, default=2)
-    p.add_argument('--deep_stride', type=int, default=3)
+    p.add_argument('--deep_stride', type=int, default=4)
     p.add_argument('--warmup_frac', type=float, default=0.10)
     p.add_argument('--cooldown_frac', type=float, default=0.05)
     p.add_argument('--vae_shallow_stride', type=int, default=2)

@@ -381,12 +381,12 @@ def make_cached_vae_generate(autoencoder, vae_layer_cache, vae_geo_cache):
 
 def patch_unimomo(
     model,
-    eps_stride=2, eps_warmup_frac=0.12, eps_cooldown_frac=0.08,
-    geo_stride=3, displacement_threshold=0.5,
-    shallow_stride=2, deep_stride=3, warmup_frac=0.10, cooldown_frac=0.05,
+    eps_stride=3, eps_warmup_frac=0.12, eps_cooldown_frac=0.08,
+    geo_stride=4, displacement_threshold=0.5,
+    shallow_stride=2, deep_stride=4, warmup_frac=0.10, cooldown_frac=0.05,
     vae_shallow_stride=2, vae_deep_stride=2, vae_warmup_frac=0.20, vae_cooldown_frac=0.20,
     vae_geo_stride=2, vae_displacement_threshold=0.3,
-    warmup="frac",
+    warmup="tstar",
 ):
     caches = {}
     is_ldm = hasattr(model, "diffusion") and hasattr(model, "autoencoder")

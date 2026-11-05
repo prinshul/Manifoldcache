@@ -13,12 +13,12 @@ Follow the setup instructions in the official UniMoMo repository: **https://gith
 ## Run
 
 ```bash
-python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0 --eps_stride <S_eps> --geo_stride <S_geo> --deep_stride <S_deep> --warmup tstar
+python generate_Manifoldcache.py --config configs/test/test_pep.yaml --ckpt checkpoints/model.ckpt --gpu 0 --eps_stride <S_eps> --geo_stride <S_geo> --deep_stride <S_deep>
 ```
 
-`<S_eps>` is how many steps the whole denoising network output is reused, `<S_geo>` how many steps the edge and attention geometry is reused, and `<S_deep>` how many steps the deepest transformer layer is reused (defaults 2, 3 and 3). Results are saved to `exports_<warmup>_<S_shallow>_<S_deep>_eps<S_eps>_geo<S_geo>/` (e.g. `exports_tstar_2_3_eps2_geo3/`); pass `--save_dir` to choose another folder.
+`<S_eps>` is how many steps the whole denoising network output is reused, `<S_geo>` how many steps the edge and attention geometry is reused, and `<S_deep>` how many steps the deepest transformer layer is reused (defaults 3, 4 and 4). Results are saved to `exports_<warmup>_<S_shallow>_<S_deep>_eps<S_eps>_geo<S_geo>/` (with the defaults, `exports_tstar_2_4_eps3_geo4/`); pass `--save_dir` to choose another folder.
 
-**Warmup** is the first, noisiest part of sampling, where the network and its layers are recomputed and not reused. `--warmup tstar` ends it automatically at T* = max{t : ᾱ_t ≥ ½}, the last step where signal outweighs noise; without it, warmup is the first `--eps_warmup` / `--warmup_frac` of steps. **Cooldown** is the last `--eps_cooldown` / `--cooldown_frac` of steps (defaults 0.08 / 0.05), which are also recomputed in full so the final molecule is exact.
+**Warmup** is the first, noisiest part of sampling, where the network and its layers are recomputed and not reused. By default (`--warmup tstar`) it ends automatically at T* = max{t : ᾱ_t ≥ ½}, the last step where signal outweighs noise; with `--warmup frac`, warmup is the first `--eps_warmup` / `--warmup_frac` of steps (defaults 0.12 / 0.10). **Cooldown** is the last `--eps_cooldown` / `--cooldown_frac` of steps (defaults 0.08 / 0.05), which are also recomputed in full so the final molecule is exact.
 
 ## Acknowledgements
 
